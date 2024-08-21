@@ -29,6 +29,12 @@
 └── xmake.lua                           # xmake 构建脚本
 ```
 
+## 开源地址
+
+[github](https://github.com/x-eks-fusion/xf_init)
+
+[gitee](https://gitee.com/x-eks-fusion/xf_init)
+
 ## 实现方式
 
 自动初始化实现库. 内含三种实现方式:
