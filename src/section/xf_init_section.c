@@ -41,7 +41,7 @@ void xf_init_from_section(void)
     UNUSED(result);
     const xf_init_section_desc_t *desc = &__xf_init_start;
     for (desc++; desc < &__xf_init_end; desc++) {
-         if (NULL == desc->func) {
+        if (NULL == desc->func) {
             continue;
         }
         result = desc->func();

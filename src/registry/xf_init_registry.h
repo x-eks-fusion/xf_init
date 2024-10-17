@@ -84,7 +84,7 @@ typedef struct _xf_init_registry_desc_node_t {
 
 /**
  * @brief （内部函数）注册初始化函数，无需直接调用，使用宏调用
- * 
+ *
  * @param p_desc_node 函数详情结构体
  * @param type 注册初始化函数的类型
  */
@@ -92,7 +92,7 @@ void xf_init_registry_register_desc_node(xf_init_registry_desc_node_t *p_desc_no
 
 /**
  * @brief 注册函数收集后，统一在此调用初始化函数
- * 
+ *
  */
 void xf_init_from_registry(void);
 

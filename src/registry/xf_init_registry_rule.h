@@ -28,11 +28,11 @@
 #undef XF_INIT_REGISTER
 
 #if defined(XF_INIT_REGISTRY_ACTION_DECLARE)
-#define XF_INIT_REGISTER(function)        extern void __xf_init_registry_##function(void)
+    #define XF_INIT_REGISTER(function)        extern void __xf_init_registry_##function(void)
 #elif defined(XF_INIT_REGISTRY_ACTION_CALL)
-#define XF_INIT_REGISTER(function)        __xf_init_registry_##function()
+    #define XF_INIT_REGISTER(function)        __xf_init_registry_##function()
 #else
-#pragma message("Please define the action.")
+    #pragma message("Please define the action.")
 #endif
 
 #undef XF_INIT_REGISTRY_ACTION_DECLARE
