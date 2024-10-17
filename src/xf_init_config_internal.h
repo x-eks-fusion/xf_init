@@ -34,7 +34,7 @@ extern "C" {
 
 // 指定你的注册表路径（在注册表模式下需要创建该名字的注册表文件，并注册需要初始化的函数）
 // 名称默认为 "xf_init_registry.inc"
-#if defined(XF_INIT_USER_REGISTRY_PATH)
+#if !defined(XF_INIT_USER_REGISTRY_PATH)
 #define XF_INIT_USER_REGISTRY_PATH      "xf_init_registry.inc"
 #endif
 
