@@ -7,49 +7,64 @@
 1. 定义某个包含某个模块的初始化函数指针以及初始化函数的函数名的常变量, 并将其放置到某个段中(本组件中是 `.xf_auto_init.` 段);
 
    ```c
-   int component1(void)
+   static int device_test(void)
    {
-       printf("hello, I'm %s\n", __FUNCTION__);
-       return 0;
+      XF_LOGI(TAG, "hello, device");
+
+      return 0;
    }
-   XF_INIT_EXPORT_BOARD(component1);
+
+   XF_INIT_EXPORT_DEVICE(device_test);
    ```
 
    宏会展开为:
 
    ```c
-   __used __section(".xf_auto_init." "1") const xf_init_desc_t __xf_init_component1 = {
-       .func = (component1),
-       .func_name = "component1",
+   __used __section(".xf_auto_init." "1") const xf_init_desc_t __xf_init_device_test = {
+       .func = (device_test),
+       .func_name = "device_test",
    };
    ```
 
    其中 `__used` 用于对通知编译器该变量是需要保留的, `__section` 用于通知编译器该变量保存到 `".xf_auto_init.1"` 段中.
 
-   `__xf_init_component1` 常变量包含了初始化函数 `component1()` 信息和初始化函数名(用于调试).
+   `__xf_init_device_test` 常变量包含了初始化函数 `device_test()` 信息和初始化函数名(用于调试).
 
 1. 链接时依靠链接器**将所有属于 `.xf_auto_init.` 段的内容集中放置到某个连续内存/闪存中**, 同时定义该段的开始变量和结尾变量以供检测;
 
-   在编译后生成出来的 map 表中可以看到 `__xf_init_component1` 常变量, 同时的开始变量和结尾变量也已经定义了出来(`__xf_init_start` 和 `__xf_init_end`):
+   在编译后生成出来的 map 表中可以看到 `__xf_init_device_test` 常变量, 同时的开始变量和结尾变量也已经定义了出来(`__xf_init_start` 和 `__xf_init_end`):
 
    ```
-   xf_auto_init    0x0000000000002010      0x100
-                  0x0000000000002010                . = ALIGN (0x8)
-                  0x0000000000002010                __xf_init_start = .
-   *(SORT_BY_NAME(.xf_auto_init*))
-   // ...
+   .xf_auto_init.0
+                  0x0000000000001ff0       0x10 build/.objs/xf_init/linux/x86_64/release/src/section/xf_init_section.c.o
+                  0x0000000000001ff0                __xf_init_start
    .xf_auto_init.1
-                  0x0000000000002060       0x10 build/.objs/linux/linux/x86_64/release/examples/other_component/component1.c.o
-                  0x0000000000002060                __xf_init_component1
-   // ...
-   .xf_auto_init.1.end
-                  0x0000000000002080       0x10 build/.objs/linux/linux/x86_64/release/src/xf_init.c.o
-                  0x0000000000002080                __xf_init_board_end
-   // ...
-    .xf_auto_init.6.end
-                  0x0000000000002100       0x10 build/.objs/linux/linux/x86_64/release/src/xf_init.c.o
-                  0x0000000000002110                __xf_init_end = .
-                  0x0000000000002110                . = ALIGN (0x8)
+                  0x0000000000002000       0x10 build/.objs/xf_init/linux/x86_64/release/example/setup.c.o
+                  0x0000000000002000                __xf_init_setup_test
+   .xf_auto_init.2
+                  0x0000000000002010       0x10 build/.objs/xf_init/linux/x86_64/release/example/board.c.o
+                  0x0000000000002010                __xf_init_board_test
+   .xf_auto_init.3
+                  0x0000000000002020       0x10 build/.objs/xf_init/linux/x86_64/release/example/prev.c.o
+                  0x0000000000002020                __xf_init_prev_test
+   .xf_auto_init.4
+                  0x0000000000002030       0x10 build/.objs/xf_init/linux/x86_64/release/example/cleanup.c.o
+                  0x0000000000002030                __xf_init_cleanup_test
+   .xf_auto_init.5
+                  0x0000000000002040       0x10 build/.objs/xf_init/linux/x86_64/release/example/device.c.o
+                  0x0000000000002040                __xf_init_device_test
+   .xf_auto_init.6
+                  0x0000000000002050       0x10 build/.objs/xf_init/linux/x86_64/release/example/component.c.o
+                  0x0000000000002050                __xf_init_component_test
+   .xf_auto_init.7
+                  0x0000000000002060       0x10 build/.objs/xf_init/linux/x86_64/release/example/env.c.o
+                  0x0000000000002060                __xf_init_env_test
+   .xf_auto_init.8
+                  0x0000000000002070       0x10 build/.objs/xf_init/linux/x86_64/release/example/app.c.o
+                  0x0000000000002070                __xf_init_app_test
+   .xf_auto_init.9
+                  0x0000000000002080       0x10 build/.objs/xf_init/linux/x86_64/release/src/section/xf_init_section.c.o
+                  0x0000000000002080                __xf_init_end
    ```
 
    Linux 编译环境下的编译脚本(**仅供参考, 不是所有情况都适用**)位于 `linker/xf_linker.gcc.64.ld`, `.64` 标识使用 8 字节对齐方式, `.32` 标识使用 4 字节对齐方式, 内容如下:
@@ -85,14 +100,16 @@
    见 `src/xf_init.c`, 下面一段负责板级初始化, 具体操作是再取开始变量和结尾变量的地址间逐一拿出需要初始化的函数并调用:
 
    ```c
-   int result = 0;
-   const xf_init_desc_t *desc = NULL;
-   for (desc = &__xf_init_board_start; desc < &__xf_init_board_end; desc++) {
-      if (NULL == desc->func) {
-         continue;
-      }
-      result = desc->func();
-   }
+    int result = 0;
+    UNUSED(result);
+    const xf_init_section_desc_t *desc = &__xf_init_start;
+    for (desc++; desc < &__xf_init_end; desc++) {
+        if (NULL == desc->func) {
+            continue;
+        }
+        result = desc->func();
+        XF_LOGD(TAG, "initialize [ret: %d] %s done.", result, desc->func_name);
+    }
    ```
 
 ### 推荐做法
