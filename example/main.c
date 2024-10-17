@@ -1,11 +1,11 @@
 /**
- * @file xf_init.c
+ * @file main.c
  * @author cangyu (sky.kirto@qq.com)
- * @brief 自动初始化实现。
+ * @brief
  * @version 0.1
- * @date 2024-05-22
+ * @date 2024-10-16
  *
- * Copyright (c) 2024, CorAL. All rights reserved.
+ * @copyright Copyright (c) 2024, CorAL. All rights reserved.
  *
  */
 
@@ -14,8 +14,6 @@
 #include "xf_init.h"
 
 /* ==================== [Defines] =========================================== */
-
-#define TAG "xf_init"
 
 /* ==================== [Typedefs] ========================================== */
 
@@ -27,18 +25,10 @@
 
 /* ==================== [Global Functions] ================================== */
 
-xf_err_t xf_init(void)
+int main(void)
 {
-
-#if (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY || XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR)
-    xf_init_from_registry();
-#elif   (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_SECTION)
-    xf_init_from_section();
-#endif
-
-    XF_LOGD(TAG, "Auto initialization is complete.");
-
-    return XF_OK;
+    xf_init();
 }
 
 /* ==================== [Static Functions] ================================== */
+

@@ -63,9 +63,7 @@ SECTIONS
     *(.gnu.warning)
     /* 在此插入 xf_auto_init 段 */
     . = ALIGN(8);
-    __xf_init_start = .;
     KEEP(*(SORT(.xf_auto_init*)))
-    __xf_init_end = .;
     . = ALIGN(8);
     /* 此处为 xf_auto_init 段结尾 */
   }

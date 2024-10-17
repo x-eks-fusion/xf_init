@@ -1,0 +1,8 @@
+XF_INIT_REGISTER_SETUP(setup_test);
+XF_INIT_REGISTER_BOARD(board_test);
+XF_INIT_REGISTER_PREV(prev_test);
+XF_INIT_REGISTER_CLEANUP(cleanup_test);
+XF_INIT_REGISTER_DEVICE(device_test);
+XF_INIT_REGISTER_COMPONENT(component_test);
+XF_INIT_REGISTER_ENV(env_test);
+XF_INIT_REGISTER_APP(app_test);

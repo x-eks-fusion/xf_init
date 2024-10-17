@@ -9,9 +9,7 @@ SECTIONS
 {
   xf_auto_init : {
   . = ALIGN(4);
-  __xf_init_start = .;
   KEEP(*(SORT(.xf_auto_init*)))
-  __xf_init_end = .;
   . = ALIGN(4);
   }
 } INSERT AFTER .text;
