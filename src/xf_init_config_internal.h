@@ -23,15 +23,27 @@ extern "C" {
 
 /* ==================== [Defines] =========================================== */
 
-#define XF_INIT_IMPL_BY_SECTION         0
-#define XF_INIT_IMPL_BY_CONSTRUCTOR     1
-#define XF_INIT_IMPL_BY_REGISTRY        2
+#define XF_INIT_IMPL_BY_SECTION         0 // 使用段属性的方式完成自动初始化（需要配置链接脚本）
+#define XF_INIT_IMPL_BY_CONSTRUCTOR     1 // 使用构造属性的方式完成自动初始化（需要支持constructor属性）
+#define XF_INIT_IMPL_BY_REGISTRY        2 // 使用注册表的方式完成自动初始化（需要手动在注册表里注册）
 
-/* Implementation method */
+// 指定你使用的模式，默认为构造属性模式
 #if !defined(XF_INIT_IMPL_METHOD)
-#   define XF_INIT_IMPL_METHOD          XF_INIT_IMPL_BY_SECTION
+#   define XF_INIT_IMPL_METHOD          XF_INIT_IMPL_BY_CONSTRUCTOR
 #endif
 
+// 指定你的注册表路径（在注册表模式下需要创建该名字的注册表文件，并注册需要初始化的函数）
+// 名称默认为 "xf_init_registry.inc"
+#if defined(XF_INIT_USER_REGISTRY_PATH)
+#define XF_INIT_USER_REGISTRY_PATH      "xf_init_registry.inc"
+#endif
+
+// 如果你设置的模式不是这三个，则会报错
+#if XF_INIT_IMPL_METHOD != XF_INIT_IMPL_BY_SECTION && XF_INIT_IMPL_METHOD != XF_INIT_IMPL_BY_CONSTRUCTOR && XF_INIT_IMPL_METHOD != XF_INIT_IMPL_BY_REGISTRY
+#error "XF_INIT_IMPL_METHOD must be one of: XF_INIT_IMPL_BY_SECTION, XF_INIT_IMPL_BY_CONSTRUCTOR, XF_INIT_IMPL_BY_REGISTRY"
+#endif
+
+// 如果你设置的模式是注册表模式，你必须定义 XF_INIT_USER_REGISTRY_PATH
 #if XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY && !defined(XF_INIT_USER_REGISTRY_PATH)
 #error "when XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY, you must define XF_INIT_USER_REGISTRY_PATH"
 #endif

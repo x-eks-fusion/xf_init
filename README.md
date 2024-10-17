@@ -5,25 +5,26 @@
 2. 支持 constructor 自动初始化方式，移植更简单
 3. 支持注册表手动初始化方式，可读性和通用性更高。
 4. 仅依赖[xf_utils](https://github.com/x-eks-fusion/xf_utils),可移植性强。
-5. 占用低，解耦性强。除了.h文件，仅仅只有一个300行不到的.c文件
+5. 占用低，解耦性强。
 
 ## 文件夹介绍
 
 ```shell
 .
-├── config_template                     # xf_init 配置模板
 ├── examples                            # linux 例程
 ├── linker                              # 各个平台的链接脚本（持续更新）
-├── src                                 # xf_init 源代码
-│  ├── xf_init.c                        # 实现 xf_init 相关收集函数
-│  ├── xf_init.h                        # 对外调用头文件
-│  ├── xf_init_config_internal.h        # 内部依赖的配置文件
-│  ├── xf_init_impl_by_constructor.h    # constructor 自动初始化实现
-│  ├── xf_init_impl_by_registry.h       # 注册表初始化的实现
-│  ├── xf_init_impl_by_section.h        # section 初始化的实现
-│  ├── xf_init_registry.inc             # 内部注册表（在注册表模式下使用）
-│  ├── xf_init_registry_rule.h          # 注册表规则实现
-│  └── xf_init_types.h                  # 相关类型头文件
+├── src                                 # 源码文件夹
+│  ├── registry                         # 自动注册初始化
+│  │  ├── xf_init_registry.c            # 实现自动注册初始化源码
+│  │  ├── xf_init_registry.h            # 手动初始化的注册表
+│  │  ├── xf_init_registry.inc
+│  │  └── xf_init_registry_rule.h
+│  ├── section
+│  │  ├── xf_init_section.c
+│  │  └── xf_init_section.h
+│  ├── xf_init.c
+│  ├── xf_init.h
+│  └── xf_init_config_internal.h
 ├── DETAILS.md                          # 自动初始化原理说明
 ├── README.md                           # 仓库说明文档
 └── xmake.lua                           # xmake 构建脚本

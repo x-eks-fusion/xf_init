@@ -4,14 +4,11 @@
 
 # 目标
 #     # . = ALIGN(4);
-#     # __xf_init_start = .;
 #     # KEEP(*(SORT(.xf_auto_init*)))
-#     # __xf_init_end = .;
 
 [sections:xf_auto_init]
 entries:
-    .xf_auto_init+ # == .xf_auto_init
-                   #    .xf_auto_init.*
+    .xf_auto_init+
 
 [scheme:xf_auto_init_default]
 entries:
