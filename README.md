@@ -92,7 +92,9 @@ XF_INIT_REGISTER_DEVICE(device_test);
 
    ```bash
    cd examples/
-   clear; xmake clean linux; xmake build linux; xmake run linux
+   xmake clean
+   xmake build
+   xmake run xf_init
    ```
 
 3. 测试其他初始化方式.

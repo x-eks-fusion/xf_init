@@ -2,7 +2,7 @@ add_rules("mode.debug", "mode.release")
 
 includes("xf_utils/xmake.lua")
 
-target("new_init")
+target("xf_init")
     set_kind("binary")
     add_includedirs("src")
     add_ldflags("-Wl,-Map=build/linux.map")

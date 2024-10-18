@@ -63,7 +63,7 @@ typedef struct _xf_init_section_desc_t {
 
 /**
  * @brief section 注册的函数将会被统一在这个函数里面调用
- * 
+ *
  */
 void xf_init_from_section(void);
 
