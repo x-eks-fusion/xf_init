@@ -1,5 +1,5 @@
 /**
- * @file xf_init_impl_by_section.h
+ * @file xf_init_section.h
  * @author catcatBlue (catcatblue@qq.com)
  * @brief 使用段属性实现自动初始化。
  * @version 1.0
@@ -16,7 +16,7 @@
 
 #include "../xf_init_config_internal.h"
 
-#if XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_SECTION
+#if (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_SECTION) || defined(__DOXYGEN__)
 
 /**
  * @ingroup group_xf_init_internal
@@ -165,6 +165,6 @@ void xf_init_from_section(void);
  * @}
  */
 
-#endif
+#endif /* XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_SECTION */
 
 #endif /* __XF_INIT_IMPL_BY_SECTION_H__ */

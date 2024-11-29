@@ -17,7 +17,9 @@
 #include "../xf_init_config_internal.h"
 #include "xf_utils.h"
 
-#if XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY || XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR
+#if (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY) \
+    || (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR) \
+    || defined(__DOXYGEN__)
 
 #ifdef __cplusplus
 extern "C" {
@@ -199,6 +201,8 @@ void xf_init_from_registry(void);
  * @}
  */
 
-#endif
+#endif /* (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY) \
+            || (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR) \
+            || defined(__DOXYGEN__) */
 
 #endif /* __XF_INIT_REGISTRY_H__ */

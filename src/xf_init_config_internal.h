@@ -23,18 +23,24 @@ extern "C" {
 
 /* ==================== [Defines] =========================================== */
 
-#define XF_INIT_IMPL_BY_SECTION         0 // 使用段属性的方式完成自动初始化（需要配置链接脚本）
-#define XF_INIT_IMPL_BY_CONSTRUCTOR     1 // 使用构造属性的方式完成自动初始化（需要支持constructor属性）
-#define XF_INIT_IMPL_BY_REGISTRY        2 // 使用注册表的方式完成自动初始化（需要手动在注册表里注册）
+#define XF_INIT_IMPL_BY_SECTION         0 /*!< 使用段属性的方式完成自动初始化（需要配置链接脚本） */
+#define XF_INIT_IMPL_BY_CONSTRUCTOR     1 /*!< 使用构造属性的方式完成自动初始化（需要支持constructor属性） */
+#define XF_INIT_IMPL_BY_REGISTRY        2 /*!< 使用注册表的方式完成自动初始化（需要手动在注册表里注册） */
 
-// 指定你使用的模式，默认为构造属性模式
 #if !defined(XF_INIT_IMPL_METHOD)
+/**
+ * @brief 自动初始化实现方式。
+ * 默认为构造属性模式。
+ */
 #   define XF_INIT_IMPL_METHOD          XF_INIT_IMPL_BY_CONSTRUCTOR
 #endif
 
-// 指定你的注册表路径（在注册表模式下需要创建该名字的注册表文件，并注册需要初始化的函数）
-// 名称默认为 "xf_init_registry.inc"
 #if !defined(XF_INIT_USER_REGISTRY_PATH)
+/**
+ * @brief 注册表路径。
+ * （在注册表模式下需要创建该名字的注册表文件，并注册需要初始化的函数）
+ * 名称默认为 "xf_init_registry.inc"
+ */
 #define XF_INIT_USER_REGISTRY_PATH      "xf_init_registry.inc"
 #endif
 
