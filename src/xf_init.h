@@ -80,7 +80,7 @@ xf_err_t xf_init(void);
  */
 
 /**
- * @cond XFAPI_PORT
+ * @cond XFAPI_USER
  * @addtogroup group_xf_init
  * @endcond
  * @{
