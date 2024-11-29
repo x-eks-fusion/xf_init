@@ -118,7 +118,6 @@ void xf_init_from_registry(void);
         xf_init_registry_register_desc_node(&CONCAT(__xf_init_desc_node_, function), XF_INIT_REGISTRY_TYPE_##type); \
     }
 
-
 /**
  * @brief 导出板级初始化函数, 全局函数实现.
  *
@@ -190,7 +189,6 @@ void xf_init_from_registry(void);
  * @param function 初始化函数.
  */
 #define XF_INIT_EXPORT_REGISTRY_APP(function) XF_INIT_EXPORT_REGISTRY(APP, function)
-
 
 #ifdef __cplusplus
 } /* extern "C" */

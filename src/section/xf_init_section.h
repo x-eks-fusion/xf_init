@@ -58,7 +58,6 @@ typedef struct _xf_init_section_desc_t {
     const char *func_name;              /*!< 初始化函数的函数名 */
 } xf_init_section_desc_t;
 
-
 /* ==================== [Global Prototypes] ================================= */
 
 /**
@@ -169,4 +168,3 @@ void xf_init_from_section(void);
 #endif
 
 #endif /* __XF_INIT_IMPL_BY_SECTION_H__ */
-

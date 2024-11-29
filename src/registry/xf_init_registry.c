@@ -24,7 +24,7 @@
 /* ==================== [Static Prototypes] ================================= */
 
 #if XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY
-    static void xf_init_explicit_call_registry(void);
+static void xf_init_explicit_call_registry(void);
 #endif
 
 /* ==================== [Static Variables] ================================== */
