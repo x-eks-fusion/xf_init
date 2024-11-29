@@ -10,33 +10,31 @@
  */
 
 /**
+ * @cond (XFAPI_USER || XFAPI_PORT || XFAPI_INTERNAL)
  * @defgroup group_xf_init xf_init
  * @brief xf_init 实现自动初始化。
  *
  * 基于段的自动初始化机制可以实现：
  * 需要初始化的组件依赖 xf_init, 而 xf_init 不依赖这些组件。
- *
- */
-
-/**
- * @ingroup group_xf_init
- * @defgroup group_xf_init_user 用户接口
- * @brief 不同等级的自动初始化宏。
- *
  * xfusion 用户使用 xf_init 时只需 `#include "xf_init.h"` 即可。
  *
+ * @endcond
  */
 
 /**
+ * @cond XFAPI_PORT
  * @ingroup group_xf_init
- * @defgroup group_xf_init_port 移植接口
+ * @defgroup group_xf_init_port porting
  * @brief 调用 xf_init 运行自动初始化的接口。
+ * @endcond
  */
 
 /**
+ * @cond XFAPI_INTERNAL
  * @ingroup group_xf_init
- * @defgroup group_xf_init_internal 内部接口
- * @brief 不同初始化方式的实现。用户不一定需要。
+ * @defgroup group_xf_init_internal internal
+ * @brief 不同初始化方式的实现。
+ * @endcond
  */
 
 #ifndef __XF_INIT_H__
@@ -61,7 +59,9 @@ extern "C" {
 /* ==================== [Global Prototypes] ================================= */
 
 /**
- * @ingroup group_xf_init_port
+ * @cond XFAPI_PORT
+ * @addtogroup group_xf_init_port
+ * @endcond
  * @{
  */
 
@@ -75,15 +75,16 @@ extern "C" {
 xf_err_t xf_init(void);
 
 /**
- * End of group_xf_init_port
+ * End of addtogroup group_xf_init_port
  * @}
  */
 
 /**
- * @ingroup group_xf_init_user
+ * @cond XFAPI_USER
+ * @addtogroup group_xf_init
+ * @endcond
  * @{
  */
-
 
 /* ==================== [Macros] ============================================ */
 
@@ -224,7 +225,7 @@ xf_err_t xf_init(void);
 #endif
 
 /**
- * End of group_xf_init_user
+ * End of addtogroup group_xf_init
  * @}
  */
 

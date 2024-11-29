@@ -17,7 +17,18 @@
 #include "../xf_init_config_internal.h"
 #include "xf_utils.h"
 
-#if XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY || XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR
+#if (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY) \
+    || (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR) \
+    || defined(__DOXYGEN__)
+
+/**
+ * @cond XFAPI_INTERNAL
+ * @ingroup group_xf_init_internal
+ * @defgroup group_xf_init_internal_registry registry
+ * @brief 基于注册表实现初始化。
+ * @endcond
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,14 +48,14 @@ extern "C" {
  * @brief 初始化功能类型。
  */
 typedef enum _xf_init_registry_type_t {
-    XF_INIT_REGISTRY_TYPE_SETUP = 0x00,      /*!< 板级 */
-    XF_INIT_REGISTRY_TYPE_BOARD,             /*!< 板级 */
-    XF_INIT_REGISTRY_TYPE_PREV,              /*!< 组件级预初始化 */
-    XF_INIT_REGISTRY_TYPE_CLEANUP,              /*!< 组件级预初始化 */
-    XF_INIT_REGISTRY_TYPE_DEVICE,            /*!< 设备级 */
-    XF_INIT_REGISTRY_TYPE_COMPONENT,         /*!< 组件级 */
-    XF_INIT_REGISTRY_TYPE_ENV,               /*!< 环境级 */
-    XF_INIT_REGISTRY_TYPE_APP,               /*!< 应用程序级 */
+    XF_INIT_REGISTRY_TYPE_SETUP = 0x00,     /*!< 板级 */
+    XF_INIT_REGISTRY_TYPE_BOARD,            /*!< 板级 */
+    XF_INIT_REGISTRY_TYPE_PREV,             /*!< 组件级预初始化 */
+    XF_INIT_REGISTRY_TYPE_CLEANUP,          /*!< 组件级预初始化 */
+    XF_INIT_REGISTRY_TYPE_DEVICE,           /*!< 设备级 */
+    XF_INIT_REGISTRY_TYPE_COMPONENT,        /*!< 组件级 */
+    XF_INIT_REGISTRY_TYPE_ENV,              /*!< 环境级 */
+    XF_INIT_REGISTRY_TYPE_APP,              /*!< 应用程序级 */
 
     XF_INIT_REGISTRY_TYPE_MAX,
 } xf_init_registry_type_t;
@@ -98,13 +109,6 @@ void xf_init_from_registry(void);
 
 /* ==================== [Macros] ============================================ */
 
-/**
- * @ingroup group_xf_init_internal
- * @defgroup group_xf_init_internal_registry registry
- * @brief 基于注册表实现初始化。
- * @{
- */
-
 #define XF_INIT_EXPORT_REGISTRY(type, function) \
     void __used __constructor __xf_init_registry_##function(void) { \
         static const xf_init_registry_desc_t CONCAT(__xf_init_desc_, function) = { \
@@ -117,7 +121,6 @@ void xf_init_from_registry(void);
         };\
         xf_init_registry_register_desc_node(&CONCAT(__xf_init_desc_node_, function), XF_INIT_REGISTRY_TYPE_##type); \
     }
-
 
 /**
  * @brief 导出板级初始化函数, 全局函数实现.
@@ -191,16 +194,17 @@ void xf_init_from_registry(void);
  */
 #define XF_INIT_EXPORT_REGISTRY_APP(function) XF_INIT_EXPORT_REGISTRY(APP, function)
 
-
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
 
 /**
- * End of group_xf_init_internal_registry
+ * End of defgroup group_xf_init_internal_registry
  * @}
  */
 
-#endif
+#endif /* (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_REGISTRY) \
+            || (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR) \
+            || defined(__DOXYGEN__) */
 
 #endif /* __XF_INIT_REGISTRY_H__ */
