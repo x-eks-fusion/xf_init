@@ -21,6 +21,15 @@
     || (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_CONSTRUCTOR) \
     || defined(__DOXYGEN__)
 
+/**
+ * @cond XFAPI_INTERNAL
+ * @ingroup group_xf_init_internal
+ * @defgroup group_xf_init_internal_registry registry
+ * @brief 基于注册表实现初始化。
+ * @endcond
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -39,14 +48,14 @@ extern "C" {
  * @brief 初始化功能类型。
  */
 typedef enum _xf_init_registry_type_t {
-    XF_INIT_REGISTRY_TYPE_SETUP = 0x00,      /*!< 板级 */
-    XF_INIT_REGISTRY_TYPE_BOARD,             /*!< 板级 */
-    XF_INIT_REGISTRY_TYPE_PREV,              /*!< 组件级预初始化 */
-    XF_INIT_REGISTRY_TYPE_CLEANUP,              /*!< 组件级预初始化 */
-    XF_INIT_REGISTRY_TYPE_DEVICE,            /*!< 设备级 */
-    XF_INIT_REGISTRY_TYPE_COMPONENT,         /*!< 组件级 */
-    XF_INIT_REGISTRY_TYPE_ENV,               /*!< 环境级 */
-    XF_INIT_REGISTRY_TYPE_APP,               /*!< 应用程序级 */
+    XF_INIT_REGISTRY_TYPE_SETUP = 0x00,     /*!< 板级 */
+    XF_INIT_REGISTRY_TYPE_BOARD,            /*!< 板级 */
+    XF_INIT_REGISTRY_TYPE_PREV,             /*!< 组件级预初始化 */
+    XF_INIT_REGISTRY_TYPE_CLEANUP,          /*!< 组件级预初始化 */
+    XF_INIT_REGISTRY_TYPE_DEVICE,           /*!< 设备级 */
+    XF_INIT_REGISTRY_TYPE_COMPONENT,        /*!< 组件级 */
+    XF_INIT_REGISTRY_TYPE_ENV,              /*!< 环境级 */
+    XF_INIT_REGISTRY_TYPE_APP,              /*!< 应用程序级 */
 
     XF_INIT_REGISTRY_TYPE_MAX,
 } xf_init_registry_type_t;
@@ -99,13 +108,6 @@ void xf_init_registry_register_desc_node(xf_init_registry_desc_node_t *p_desc_no
 void xf_init_from_registry(void);
 
 /* ==================== [Macros] ============================================ */
-
-/**
- * @ingroup group_xf_init_internal
- * @defgroup group_xf_init_internal_registry registry
- * @brief 基于注册表实现初始化。
- * @{
- */
 
 #define XF_INIT_EXPORT_REGISTRY(type, function) \
     void __used __constructor __xf_init_registry_##function(void) { \
@@ -197,7 +199,7 @@ void xf_init_from_registry(void);
 #endif
 
 /**
- * End of group_xf_init_internal_registry
+ * End of defgroup group_xf_init_internal_registry
  * @}
  */
 

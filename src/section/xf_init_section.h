@@ -19,9 +19,11 @@
 #if (XF_INIT_IMPL_METHOD == XF_INIT_IMPL_BY_SECTION) || defined(__DOXYGEN__)
 
 /**
+ * @cond XFAPI_INTERNAL
  * @ingroup group_xf_init_internal
  * @defgroup group_xf_init_internal_impl_by_section section
  * @brief 基于段属性实现自动初始化。
+ * @endcond
  * @{
  */
 
@@ -61,8 +63,7 @@ typedef struct _xf_init_section_desc_t {
 /* ==================== [Global Prototypes] ================================= */
 
 /**
- * @brief section 注册的函数将会被统一在这个函数里面调用
- *
+ * @brief section 注册的函数将会被统一在这个函数里面调用。
  */
 void xf_init_from_section(void);
 
@@ -161,7 +162,7 @@ void xf_init_from_section(void);
 #endif
 
 /**
- * End of group_xf_init_internal_impl_by_section
+ * End of defgroup group_xf_init_internal_impl_by_section
  * @}
  */
 
